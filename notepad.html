@@ -1,0 +1,33 @@
+data:text/html, <div style="position: relative;">
+    <textarea id="contentTA" contenteditable placeholder="Start Writing..." style="font-size: 2rem; font-family:Verdana; width:101%; height:101%; margin:-10px; padding: 20px; background-color:rgb(30, 0, 36); color: white;"></textarea>
+    <button style="position: absolute; top: 0px; right: 0px; padding: 10px; background-color: green; color: white;" onclick="save();">Save</button>
+    <script>
+        function save(){
+            console.log("saving"); 
+            let text= document.getElementById("contentTA").value; 
+            let fname= "Note__"+getFormattedDate()+".txt"
+            download(fname, text);
+        }   
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+        }
+
+        function getFormattedDate() {
+            var date = new Date();
+            var str = date.getFullYear() + "_" + (date.getMonth() + 1) + "_" + date.getDate() + "__" +  date.getHours() + "_" + date.getMinutes();
+        
+            return str;
+        }
+    </script>
+</div>
